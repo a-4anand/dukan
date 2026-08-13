@@ -204,6 +204,7 @@ img { max-width: 100%; }
 
 .custom_nav-container .navbar-toggler span {
   display: block;
+  position: relative;
   width: 28px;
   height: 3px;
   background: var(--gold);
