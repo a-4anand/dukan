@@ -99,6 +99,11 @@ body, .content-wrapper, .main-sidebar, .main-footer {
     background: #f0f2f8 !important;
 }
 
+.content-header h1 {
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+}
+
 .content-header {
     padding: 20px 24px 0 !important;
 }
@@ -109,6 +114,8 @@ body, .content-wrapper, .main-sidebar, .main-footer {
 
 /* --- Cards / Modules --- */
 .card {
+    background: #ffffff !important;
+    color: #1a1a2e !important;
     border: none !important;
     border-radius: 14px !important;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
@@ -202,6 +209,16 @@ body, .content-wrapper, .main-sidebar, .main-footer {
     vertical-align: middle !important;
     border-color: rgba(0,0,0,0.05) !important;
     font-size: 0.9rem !important;
+    color: #4a5568 !important;
+}
+
+.table tbody td a {
+    color: #1a1a2e !important;
+    font-weight: 600 !important;
+}
+
+.table tbody td a:hover {
+    color: #ffbe33 !important;
 }
 
 /* --- Form Controls --- */
@@ -300,11 +317,11 @@ table#result_list td a,
         margin-bottom: 16px !important;
     }
 
-    .table thead {
+    body:not(.dashboard) .table thead {
         display: none !important;
     }
 
-    .table tbody tr {
+    body:not(.dashboard) .table tbody tr {
         display: block !important;
         margin-bottom: 12px !important;
         border: 1px solid #e2e8f0 !important;
@@ -312,14 +329,14 @@ table#result_list td a,
         padding: 8px !important;
     }
 
-    .table tbody td {
+    body:not(.dashboard) .table tbody td {
         display: flex !important;
         justify-content: space-between !important;
         border: none !important;
         padding: 8px 12px !important;
     }
 
-    .table tbody td::before {
+    body:not(.dashboard) .table tbody td::before {
         content: attr(data-label);
         font-weight: 600;
         color: #ffbe33;
