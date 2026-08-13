@@ -1,0 +1,327 @@
+/* ==========================================================
+   DINESH DABELI — Custom Admin Override (Jazzmin)
+   Brand Palette: Gold #ffbe33 / Orange #e78d25 / Dark #1a1a2e / Charcoal #222831
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* --- Base & Typography --- */
+body, .content-wrapper, .main-sidebar, .main-footer {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* --- Sidebar --- */
+.main-sidebar {
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%) !important;
+    border-right: none !important;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.4) !important;
+}
+
+.brand-link {
+    background: linear-gradient(135deg, #ffbe33, #e78d25) !important;
+    border-bottom: none !important;
+    padding: 18px 20px !important;
+}
+
+.brand-link .brand-text {
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.5px !important;
+}
+
+.brand-link img {
+    border-radius: 6px !important;
+}
+
+/* Sidebar nav */
+.sidebar .nav-sidebar .nav-item .nav-link {
+    color: rgba(255,255,255,0.75) !important;
+    border-radius: 8px !important;
+    margin: 2px 8px !important;
+    padding: 10px 15px !important;
+    transition: all 0.3s ease !important;
+}
+
+.sidebar .nav-sidebar .nav-item .nav-link:hover,
+.sidebar .nav-sidebar .nav-item.menu-open > .nav-link {
+    color: #1a1a2e !important;
+    background: linear-gradient(135deg, #ffbe33, #e78d25) !important;
+    box-shadow: 0 4px 12px rgba(255,190,51,0.35) !important;
+    transform: translateX(3px) !important;
+}
+
+.sidebar .nav-sidebar .nav-item .nav-link.active {
+    background: linear-gradient(135deg, #ffbe33, #e78d25) !important;
+    color: #1a1a2e !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 16px rgba(255,190,51,0.4) !important;
+}
+
+.sidebar .nav-sidebar .nav-item .nav-link i,
+.sidebar .nav-sidebar .nav-item .nav-link svg {
+    color: inherit !important;
+}
+
+.nav-sidebar .nav-header {
+    color: rgba(255,190,51,0.6) !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    padding: 12px 18px 6px !important;
+}
+
+/* --- Top Navbar --- */
+.main-header.navbar {
+    background: #1a1a2e !important;
+    border-bottom: 2px solid rgba(255,190,51,0.25) !important;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.3) !important;
+}
+
+.main-header .navbar-nav .nav-link,
+.main-header .navbar-search-block .form-control {
+    color: rgba(255,255,255,0.8) !important;
+}
+
+.main-header .navbar-nav .nav-link:hover {
+    color: #ffbe33 !important;
+}
+
+.navbar-nav .nav-item .nav-link .navbar-badge {
+    background: #ffbe33 !important;
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+}
+
+/* --- Content Area --- */
+.content-wrapper {
+    background: #f0f2f8 !important;
+}
+
+.content-header {
+    padding: 20px 24px 0 !important;
+}
+
+.content-header .breadcrumb .breadcrumb-item a {
+    color: #ffbe33 !important;
+}
+
+/* --- Cards / Modules --- */
+.card {
+    border: none !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+    overflow: hidden !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.14) !important;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #1a1a2e, #16213e) !important;
+    border-bottom: none !important;
+    color: #fff !important;
+    padding: 16px 20px !important;
+    font-weight: 600 !important;
+}
+
+.card-header a, .card-header h3 {
+    color: #fff !important;
+}
+
+/* --- App Index Buttons --- */
+.btn-primary {
+    background: linear-gradient(135deg, #ffbe33, #e78d25) !important;
+    border: none !important;
+    color: #1a1a2e !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 3px 10px rgba(255,190,51,0.3) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(255,190,51,0.45) !important;
+    color: #1a1a2e !important;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #0f3460, #533483) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-info:hover {
+    opacity: 0.9 !important;
+    transform: translateY(-1px) !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #11998e, #38ef7d) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b) !important;
+    border: none !important;
+    border-radius: 8px !important;
+}
+
+/* --- Tables --- */
+.table thead th {
+    background: linear-gradient(135deg, #1a1a2e, #16213e) !important;
+    color: #ffbe33 !important;
+    border: none !important;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    padding: 14px 16px !important;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease !important;
+}
+
+.table tbody tr:hover {
+    background: rgba(255,190,51,0.06) !important;
+    transform: scale(1.001) !important;
+}
+
+.table tbody td {
+    padding: 13px 16px !important;
+    vertical-align: middle !important;
+    border-color: rgba(0,0,0,0.05) !important;
+    font-size: 0.9rem !important;
+}
+
+/* --- Form Controls --- */
+.form-control {
+    border-radius: 8px !important;
+    border: 1.5px solid #e2e8f0 !important;
+    padding: 10px 14px !important;
+    font-size: 0.9rem !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.form-control:focus {
+    border-color: #ffbe33 !important;
+    box-shadow: 0 0 0 3px rgba(255,190,51,0.2) !important;
+    outline: none !important;
+}
+
+/* --- Dashboard Stats Cards — App list style --- */
+.small-box {
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+}
+
+.small-box .inner h3 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+/* --- Recent Actions Panel --- */
+#recent-actions-module .module h2 {
+    color: #ffbe33 !important;
+}
+
+/* --- Breadcrumb --- */
+.breadcrumb {
+    background: transparent !important;
+}
+
+.breadcrumb-item.active {
+    color: #ffbe33 !important;
+}
+
+/* --- Login Page Override --- */
+.login-card-body {
+    border-radius: 16px !important;
+}
+
+.login-logo a {
+    color: #ffbe33 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #1a1a2e;
+}
+::-webkit-scrollbar-thumb {
+    background: #ffbe33;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #e78d25;
+}
+
+/* --- Admin App Index Table (Add / Change links) --- */
+table#result_list td a,
+.model-link,
+.section a {
+    color: #1a1a2e !important;
+    font-weight: 500 !important;
+}
+
+/* --- Image Preview in List --- */
+.admin-thumb img {
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+    transition: transform 0.2s ease !important;
+}
+
+.admin-thumb img:hover {
+    transform: scale(1.05) !important;
+}
+
+/* --- Responsive — Mobile --- */
+@media (max-width: 768px) {
+    .content-wrapper {
+        margin-left: 0 !important;
+    }
+
+    .card {
+        margin-bottom: 16px !important;
+    }
+
+    .table thead {
+        display: none !important;
+    }
+
+    .table tbody tr {
+        display: block !important;
+        margin-bottom: 12px !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 10px !important;
+        padding: 8px !important;
+    }
+
+    .table tbody td {
+        display: flex !important;
+        justify-content: space-between !important;
+        border: none !important;
+        padding: 8px 12px !important;
+    }
+
+    .table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #ffbe33;
+    }
+}
