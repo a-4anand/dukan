@@ -38,6 +38,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="/static/manifest.json">
+  <meta name="theme-color" content="#ffbe33">
+  <link rel="apple-touch-icon" href="/static/images/favicon.png">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body class="sub_page">
@@ -106,84 +112,36 @@
 
       <ul class="filters_menu">
         <li class="active" data-filter="*">All</li>
-        <li data-filter=".burger">Dabeli</li>
-        <li data-filter=".pizza">Vadapav</li>
-        <li data-filter=".pasta">Samosa</li>
-
-        <li data-filter=".fries">Others</li>
+        {% for category in categories %}
+        <li data-filter=".{{ category.css_class }}">{{ category.name }}</li>
+        {% endfor %}
       </ul>
 
       <div class="filters-content">
         <div class="row grid">
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
+          {% for item in items %}
+          <div class="col-sm-6 col-lg-4 all {{ item.category.css_class }}">
+            <div class="box"> data-aos="fade-up" data-aos-duration="500"
               <div>
                 <div class="img-box">
-                  <img src="../static/dimage/img.png" alt="samosa">
+                  <img src="{% if item.image %}{{ item.image.url }}{% else %}{{ item.image_url }}{% endif %}" alt="{{ item.name }}">
                 </div>
                 <div class="detail-box">
                   <h5>
-                    Cheese VadaPav
+                    {{ item.name }}
                   </h5>
                   <p>
-                    Experience the perfect fusion of bold flavors with our Cheese Vadapav, where the classic street food gets a cheesy twist that will melt your heart.
+                    {{ item.description }}
                   </p>
                   <div class="options">
                     <h6>
-
+                      ₹{{ item.price }}
                     </h6>
-                    <a href="https://www.swiggy.com/restaurants/dinesh-dabeli-althan-vip-road-surat-127861">
+                    <a href="#" onclick="addToCart(event, '{{ item.id }}')">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
+                        <g><g><path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" /></g></g>
+                        <g><g><path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" /></g></g>
+                        <g><g><path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" /></g></g>
                       </svg>
                     </a>
                   </div>
@@ -191,627 +149,10 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="../static/dimage/WhatsApp%20Image%202024-01-04%20at%2000.28.47%20(3).jpeg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Mayonese Dabeli
-                  </h5>
-                  <p>
-                    Experience the perfect fusion of creamy indulgence and spicy delight with our Mayo Dabeli – a scrumptious twist on a classic street food favorite
-                  </p>
-                  <div class="options">
-                    <h6>
-
-                    </h6>
-                    <a href="https://www.swiggy.com/restaurants/dinesh-dabeli-althan-vip-road-surat-127861">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pizza">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="../static/dimage/img_1.png" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Mayo Vadapav
-                  </h5>
-                  <p>
-                    Elevate your taste experience with our Mayo Vadapav, a fusion of creamy mayonnaise and spicy vada, creating a symphony of flavors in every bite
-                  </p>
-                  <div class="options">
-                    <h6>
-
-                    </h6>
-                    <a href="https://www.swiggy.com/restaurants/dinesh-dabeli-althan-vip-road-surat-127861">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pasta">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="../static/dimage/WhatsApp Image 2024-01-04 at 00.28.47 (1).jpeg" height="768" width="1024"/>
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Mayo Masala Samosa
-                  </h5>
-                  <p>
-                    Indulge in the fusion of flavors with our Mayo Masala Samosa, where the classic crunch meets a creamy twist for a delightful taste sensation!
-                  </p>
-                  <div class="options">
-                    <h6>
-
-                    </h6>
-                    <a href="https://www.swiggy.com/restaurants/dinesh-dabeli-althan-vip-road-surat-127861">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all pasta">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="../static/dimage/WhatsApp%20Image%202024-01-04%20at%2000.28.47%20(7).jpeg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Cheese Masala Samosa
-                  </h5>
-                  <p>
-                    Indulge in the perfect blend of gooey cheese and aromatic spices with our Cheese Masala Samosa – a crispy sensation!
-                  </p>
-                  <div class="options">
-                    <h6>
-
-                    </h6>
-                    <a href="https://www.swiggy.com/restaurants/dinesh-dabeli-althan-vip-road-surat-127861">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="../static/dimage/WhatsApp%20Image%202024-01-04%20at%2000.28.47%20(8).jpeg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Amul Butter Masala Dabeli
-                  </h5>
-                  <p>
-                    Experience the explosion of flavors with our Masala Dabeli – a spicy and tangy delight wrapped in a soft bun, creating a perfect harmony of taste in every bite!
-                  </p>
-                  <div class="options">
-                    <h6>
-
-                    </h6>
-                    <a href="https://www.swiggy.com/restaurants/dinesh-dabeli-althan-vip-road-surat-127861">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all burger">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="../static/dimage/WhatsApp%20Image%202024-01-04%20at%2000.28.47%20(3).jpeg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Sp. Dabeli
-                  </h5>
-                  <p>
-                    Savor the unique fusion of flavors in our special Dabeli – a delightful medley of spicy, sweet, and tangy goodness wrapped in a perfectly toasted bun ,enjoy our best-selling mouth watering icon in a classic style!
-                  </p>
-                  <div class="options">
-                    <h6>
-
-                    </h6>
-                    <a href="https://www.swiggy.com/restaurants/dinesh-dabeli-althan-vip-road-surat-127861">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-           <div class="col-sm-6 col-lg-4 all fries">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="../static/dimage/WhatsApp%20Image%202024-01-04%20at%2000.28.47%20(9).jpeg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Sp. TimePass
-                  </h5>
-                  <p>
-                    ndulge in the ultimate time pass delight, a cheesy symphony of flavors crafted with love – our special Time Pass dish featuring luscious cheese, creamy mayonnaise!, with mouth watering taste, once try we bet you will get cravings of it.
-                  </p>
-                  <div class="options">
-                    <h6>
-
-                    </h6>
-                    <a href="https://www.swiggy.com/restaurants/dinesh-dabeli-althan-vip-road-surat-127861">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4 all fries">
-            <div class="box">
-              <div>
-                <div class="img-box">
-                  <img src="../static/dimage/WhatsApp%20Image%202024-01-04%20at%2000.28.47%20(11).jpeg" alt="">
-                </div>
-                <div class="detail-box">
-                  <h5>
-                    Sp. Solid Masti Pav
-                  </h5>
-                  <p>
-                    Experience the fusion feast with our newest creation - Solid Masti Pav, where the irresistible crunch of Kurkure meets the lusciousness of solid masti cheese, the taste of butter with sipcy masala will definetly steal your heart.
-                  </p>
-                  <div class="options">
-                    <h6>
-
-                    </h6>
-                    <a href="https://www.swiggy.com/restaurants/dinesh-dabeli-althan-vip-road-surat-127861">
-                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                         c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                         C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                         c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                         C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                          </g>
-                        </g>
-                        <g>
-                          <g>
-                            <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                         c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                          </g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                        <g>
-                        </g>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
+          {% endfor %}
         </div>
       </div>
-
-
-      <div class="btn-box">
-        <a href="menu">
-          View More
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
 
 
 
@@ -921,6 +262,210 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
   </script>
   <!-- End Google Map -->
+
+
+<!-- Floating Cart -->
+<div id="floating-cart" style="position: fixed; bottom: 20px; right: 20px; background: #ffbe33; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 1000;" onclick="toggleCartDrawer()">
+    <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
+    <span id="cart-count" style="position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px;">0</span>
+</div>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer" style="position: fixed; top: 0; right: -350px; width: 350px; height: 100vh; background: white; box-shadow: -2px 0 5px rgba(0,0,0,0.5); z-index: 1001; transition: right 0.3s; padding: 20px; overflow-y: auto;">
+    <button onclick="toggleCartDrawer()" style="float: right; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+    <h3 style="color: #222831;">Your Order</h3>
+    <hr>
+    <div id="cart-items" style="color: #222831;"></div>
+    <hr>
+    <button onclick="checkoutWhatsApp()" style="width: 100%; padding: 10px; background: #25D366; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px;">
+        <i class="fa fa-whatsapp"></i> Order on WhatsApp
+    </button>
+</div>
+
+<!-- Add to Cart Script -->
+<script>
+    function toggleCartDrawer() {
+        const drawer = document.getElementById('cart-drawer');
+        if (drawer.style.right === '0px') {
+            drawer.style.right = '-350px';
+        } else {
+            drawer.style.right = '0px';
+            loadCartData();
+        }
+    }
+
+    function loadCartData() {
+        fetch('/get_cart/')
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            if(data.items.length === 0) {
+                container.innerHTML = '<p>Your cart is empty.</p>';
+            } else {
+                data.items.forEach(item => {
+                    container.innerHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>${item.name} (x${item.qty})</span>
+                    </div>`;
+                });
+            }
+            document.getElementById('cart-count').innerText = data.total_items;
+        });
+    }
+
+    // Load initial count
+    window.onload = function() {
+        fetch('/get_cart/')
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('cart-count').innerText = data.total_items;
+        });
+    }
+
+    function addToCart(event, itemId) {
+        event.preventDefault();
+        fetch('/add_to_cart/' + itemId + '/')
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success') {
+                document.getElementById('cart-count').innerText = data.cart_count;
+                // Add a simple toast
+                let toast = document.createElement('div');
+                toast.innerText = "Added to Cart!";
+                toast.style.cssText = "position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #222831; color: white; padding: 10px 20px; border-radius: 5px; z-index: 9999;";
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2000);
+            }
+        });
+    }
+
+    function checkoutWhatsApp() {
+        fetch('/get_cart/')
+        .then(res => res.json())
+        .then(data => {
+            if(data.items.length === 0) {
+                alert("Cart is empty!");
+                return;
+            }
+            let msg = "Hello Dinesh Dabeli! I want to order:\n\n";
+            data.items.forEach(item => {
+                msg += `- ${item.name} (x${item.qty})\n`;
+            });
+            msg += "\nPlease confirm my order.";
+            let encodedMsg = encodeURIComponent(msg);
+            // Assuming the business number is 919876543210
+            window.open("https://wa.me/919876543210?text=" + encodedMsg, "_blank");
+        });
+    }
+</script>
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/static/sw.js')
+          .then(reg => console.log('Service Worker registered!', reg))
+          .catch(err => console.error('Service Worker registration failed', err));
+      });
+    }
+  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+
+<!-- Floating Cart -->
+<div id="floating-cart" style="position: fixed; bottom: 20px; right: 20px; background: #ffbe33; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 1000;" onclick="toggleCartDrawer()">
+    <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
+    <span id="cart-count" style="position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px;">0</span>
+</div>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer" style="position: fixed; top: 0; right: -350px; width: 350px; height: 100vh; background: white; box-shadow: -2px 0 5px rgba(0,0,0,0.5); z-index: 1001; transition: right 0.3s; padding: 20px; overflow-y: auto;">
+    <button onclick="toggleCartDrawer()" style="float: right; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+    <h3 style="color: #222831;">Your Order</h3>
+    <hr>
+    <div id="cart-items" style="color: #222831;"></div>
+    <hr>
+    <button onclick="checkoutWhatsApp()" style="width: 100%; padding: 10px; background: #25D366; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px;">
+        <i class="fa fa-whatsapp"></i> Order on WhatsApp
+    </button>
+</div>
+
+<!-- Add to Cart Script -->
+<script>
+    function toggleCartDrawer() {
+        const drawer = document.getElementById('cart-drawer');
+        if (drawer.style.right === '0px') {
+            drawer.style.right = '-350px';
+        } else {
+            drawer.style.right = '0px';
+            loadCartData();
+        }
+    }
+
+    function loadCartData() {
+        fetch('/get_cart/')
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            if(data.items.length === 0) {
+                container.innerHTML = '<p>Your cart is empty.</p>';
+            } else {
+                data.items.forEach(item => {
+                    container.innerHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>${item.name} (x${item.qty})</span>
+                    </div>`;
+                });
+            }
+            document.getElementById('cart-count').innerText = data.total_items;
+        });
+    }
+
+    // Load initial count
+    window.onload = function() {
+        fetch('/get_cart/')
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('cart-count').innerText = data.total_items;
+        });
+    }
+
+    function addToCart(event, itemId) {
+        event.preventDefault();
+        fetch('/add_to_cart/' + itemId + '/')
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success') {
+                document.getElementById('cart-count').innerText = data.cart_count;
+                // Add a simple toast
+                let toast = document.createElement('div');
+                toast.innerText = "Added to Cart!";
+                toast.style.cssText = "position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #222831; color: white; padding: 10px 20px; border-radius: 5px; z-index: 9999;";
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2000);
+            }
+        });
+    }
+
+    function checkoutWhatsApp() {
+        fetch('/get_cart/')
+        .then(res => res.json())
+        .then(data => {
+            if(data.items.length === 0) {
+                alert("Cart is empty!");
+                return;
+            }
+            let msg = "Hello Dinesh Dabeli! I want to order:\n\n";
+            data.items.forEach(item => {
+                msg += `- ${item.name} (x${item.qty})\n`;
+            });
+            msg += "\nPlease confirm my order.";
+            let encodedMsg = encodeURIComponent(msg);
+            // Assuming the business number is 919876543210
+            window.open("https://wa.me/919876543210?text=" + encodedMsg, "_blank");
+        });
+    }
+</script>
 
 </body>
 

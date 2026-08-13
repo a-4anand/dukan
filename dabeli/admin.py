@@ -1,12 +1,16 @@
 from django.contrib import admin
 #
-from dabeli.models import Contact,Rating
+from .models import Contact, Rating, Category, MenuItem, HomePageContent, Offer
 #
 #
 #
-# # Register your models here.
+#
 admin.site.register(Contact)
 admin.site.register(Rating)
+admin.site.register(Category)
+admin.site.register(MenuItem)
+admin.site.register(HomePageContent)
+admin.site.register(Offer)
 
 # your_app/admin.py
 

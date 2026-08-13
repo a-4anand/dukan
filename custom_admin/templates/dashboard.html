@@ -208,7 +208,10 @@
         <!-- Header Section -->
         <div class="header">
             <h1>Welcome MALIK</h1>
-            <form action="{% url 'owner_logout' %}" method="POST">
+            <a href="/admin/" class="logout-btn" style="background-color: var(--primary-color); margin-right: 10px; text-decoration: none; display: inline-block;">
+                <i class="fas fa-cogs"></i> Manage Menu
+            </a>
+            <form action="{% url 'owner_logout' %}" method="POST" style="display: inline-block;">
                 {% csrf_token %}
                 <button type="submit" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </form>
