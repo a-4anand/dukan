@@ -11,8 +11,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    "jazzmin",
     "dabeli.apps.DabeliConfig",
-    "custom_admin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -89,4 +89,39 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "dabeli", "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Dinesh Dabeli Admin",
+    "site_header": "Dinesh Dabeli",
+    "site_brand": "Dinesh Dabeli",
+    "welcome_sign": "Welcome to Dinesh Dabeli Admin",
+    "search_model": ["dabeli.MenuItem", "dabeli.Contact"],
+    "show_ui_builder": True,
+    "topmenu_links": [
+        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "View Site", "url": "/", "new_window": True},
+    ],
+    "order_with_respect_to": ["dabeli", "dabeli.MenuItem", "dabeli.Offer", "dabeli.HomePageContent", "dabeli.Category", "dabeli.Rating", "dabeli.Contact"],
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "dabeli.MenuItem": "fas fa-hamburger",
+        "dabeli.Category": "fas fa-list",
+        "dabeli.Offer": "fas fa-tag",
+        "dabeli.HomePageContent": "fas fa-home",
+        "dabeli.Rating": "fas fa-star",
+        "dabeli.Contact": "fas fa-envelope",
+    },
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
+    "related_modal_active": False,
+    "custom_css": None,
+    "custom_js": None,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly",
+    "dark_mode_theme": "darkly",
+}
 

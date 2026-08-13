@@ -1,29 +1,49 @@
 from django.contrib import admin
-#
+from django.utils.html import format_html
 from .models import Contact, Rating, Category, MenuItem, HomePageContent, Offer
-#
-#
-#
-#
-admin.site.register(Contact)
-admin.site.register(Rating)
-admin.site.register(Category)
-admin.site.register(MenuItem)
-admin.site.register(HomePageContent)
-admin.site.register(Offer)
 
-# your_app/admin.py
+@admin.register(MenuItem)
+class MenuItemAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'price', 'is_available', 'image_preview')
+    list_filter = ('category', 'is_available')
+    search_fields = ('name', 'description')
+    list_editable = ('price', 'is_available')
+    
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="width: 50px; height: 50px; border-radius: 5px; object-fit: cover;"/>', obj.image.url)
+        elif obj.image_url:
+            return format_html('<img src="{}" style="width: 50px; height: 50px; border-radius: 5px; object-fit: cover;"/>', obj.image_url)
+        return "No Image"
+    image_preview.short_description = 'Preview'
 
-from django.contrib import admin
+@admin.register(Offer)
+class OfferAdmin(admin.ModelAdmin):
+    list_display = ('title', 'discount_text', 'is_active', 'image_preview')
+    list_editable = ('is_active',)
+    
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="width: 50px; height: 50px; border-radius: 5px; object-fit: cover;"/>', obj.image.url)
+        return "No Image"
+    image_preview.short_description = 'Preview'
 
-# Customize admin site behavior, e.g., change the site header
-admin.site.site_header = 'Admin Dashboard'
+@admin.register(HomePageContent)
+class HomePageContentAdmin(admin.ModelAdmin):
+    list_display = ('hero_title', 'about_title')
 
-# admin.py
-# from django.contrib import admin
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'created_at')
+    list_filter = ('category', 'created_at')
+    search_fields = ('name', 'message', 'phone')
 
-# class YourModelAdmin(admin.ModelAdmin):
-#     class Media:
-#         css = {
-#             'all': ('path/to/admin_custom.css',),
-#         }
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ('name', 'rating', 'submitted_at')
+    list_filter = ('rating', 'submitted_at')
+    search_fields = ('name', 'comments')
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'css_class')
