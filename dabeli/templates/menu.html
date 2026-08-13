@@ -121,7 +121,7 @@
         <div class="row grid">
           {% for item in items %}
           <div class="col-sm-6 col-lg-4 all {{ item.category.css_class }}">
-            <div class="box"> data-aos="fade-up" data-aos-duration="500"
+            <div class="box" data-aos="fade-up" data-aos-duration="500">
               <div>
                 <div class="img-box">
                   <img src="{% if item.image %}{{ item.image.url }}{% else %}{{ item.image_url }}{% endif %}" alt="{{ item.name }}">
@@ -282,6 +282,7 @@
 
 
 {% include 'cart_partial.html' %}
+{% include 'pwa_prompt.html' %}
 </body>
 
 </html>

@@ -96,7 +96,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Dinesh Dabeli",
     "welcome_sign": "Welcome to Dinesh Dabeli Admin",
     "search_model": ["dabeli.MenuItem", "dabeli.Contact"],
-    "show_ui_builder": True,
+    "show_ui_builder": False,
     "topmenu_links": [
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "View Site", "url": "/", "new_window": True},
