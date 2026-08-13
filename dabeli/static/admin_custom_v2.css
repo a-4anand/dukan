@@ -196,11 +196,12 @@ body, .content-wrapper, .main-sidebar, .main-footer {
 }
 
 .table tbody tr {
+    background: #ffffff !important;
     transition: all 0.2s ease !important;
 }
 
 .table tbody tr:hover {
-    background: rgba(255,190,51,0.06) !important;
+    background: #f8f9fa !important;
     transform: scale(1.001) !important;
 }
 
