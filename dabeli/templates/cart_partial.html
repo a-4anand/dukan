@@ -1,0 +1,604 @@
+<!-- ============================================================
+     PREMIUM CART DRAWER & CHECKOUT UI
+     Drop this partial before </body> on any page that needs the cart.
+     Requires: shop.whatsapp_number in Django context
+     ============================================================ -->
+
+<!-- Overlay -->
+<div id="cart-overlay" onclick="toggleCartDrawer()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(4px); z-index:1050; transition:opacity 0.3s;"></div>
+
+<!-- Floating Cart Button -->
+<div id="floating-cart" onclick="toggleCartDrawer()">
+    <i class="fa fa-shopping-cart"></i>
+    <span id="cart-count">0</span>
+</div>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer">
+    <!-- Header -->
+    <div class="cart-header">
+        <h3><i class="fa fa-shopping-bag"></i> Your Order</h3>
+        <button class="cart-close" onclick="toggleCartDrawer()">&times;</button>
+    </div>
+
+    <!-- Shop Status Banner -->
+    <div id="shop-status-banner" class="shop-status open">
+        <i class="fa fa-circle"></i> <span id="shop-status-text">Loading...</span>
+    </div>
+
+    <!-- Cart Items -->
+    <div id="cart-items" class="cart-items-list"></div>
+
+    <!-- Price Breakdown -->
+    <div id="cart-summary" class="cart-summary" style="display:none;">
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="cart-subtotal">₹0</span>
+        </div>
+        <div class="summary-row" id="delivery-row">
+            <span>Delivery</span>
+            <span id="cart-delivery">₹0</span>
+        </div>
+        <div class="summary-row discount-row" id="discount-row" style="display:none;">
+            <span id="discount-label">Discount</span>
+            <span id="cart-discount">-₹0</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row total-row">
+            <span>Grand Total</span>
+            <span id="cart-grand-total">₹0</span>
+        </div>
+        <div id="free-delivery-hint" class="free-delivery-hint" style="display:none;">
+            <i class="fa fa-truck"></i> <span id="free-delivery-text"></span>
+        </div>
+    </div>
+
+    <!-- Address Form -->
+    <div id="checkout-form" class="checkout-form" style="display:none;">
+        <h4>Delivery Details</h4>
+        <input type="text" id="cust-name" placeholder="Your Name" required>
+        <input type="tel" id="cust-phone" placeholder="Phone Number" required>
+        <textarea id="cust-address" placeholder="Full Delivery Address" rows="3" required></textarea>
+    </div>
+
+    <!-- Checkout Button -->
+    <div class="cart-actions">
+        <button id="btn-checkout" class="btn-whatsapp" onclick="checkoutWhatsApp()" disabled>
+            <i class="fa fa-whatsapp"></i> Order on WhatsApp
+        </button>
+    </div>
+</div>
+
+<!-- ============================================================
+     CART STYLES
+     ============================================================ -->
+<style>
+/* Floating Cart Button */
+#floating-cart {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffbe33, #e78d25);
+    color: #1a1a2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 6px 28px rgba(255,190,51,0.5);
+    z-index: 1060;
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    font-size: 24px;
+}
+#floating-cart:hover {
+    transform: scale(1.12);
+    box-shadow: 0 10px 36px rgba(255,190,51,0.65);
+}
+#cart-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff416c;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 50px;
+    min-width: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(255,65,108,0.5);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Cart Drawer */
+#cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 400px;
+    max-width: 92vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 1100;
+    transition: right 0.4s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -8px 0 40px rgba(0,0,0,0.25);
+    border-radius: 20px 0 0 20px;
+    font-family: 'Poppins', sans-serif;
+}
+#cart-drawer.open { right: 0; }
+
+/* Header */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.cart-header h3 {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #1a1a2e;
+}
+.cart-header h3 i { color: #ffbe33; margin-right: 8px; }
+.cart-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.cart-close:hover { color: #ff416c; }
+
+/* Shop Status */
+.shop-status {
+    padding: 10px 24px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.shop-status.open { background: #e8faf0; color: #0d9b52; }
+.shop-status.closed { background: #fff0f0; color: #d32f2f; }
+.shop-status i { font-size: 8px; }
+
+/* Cart Items List */
+.cart-items-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px;
+    min-height: 100px;
+}
+.cart-items-list .empty-cart {
+    text-align: center;
+    padding: 48px 0;
+    color: #bbb;
+}
+.cart-items-list .empty-cart i {
+    font-size: 48px;
+    margin-bottom: 12px;
+    display: block;
+    color: #e0e0e0;
+}
+
+/* Individual Cart Item */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f5f5f5;
+    animation: fadeSlideIn 0.3s ease;
+}
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+.cart-item-info { flex: 1; }
+.cart-item-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #1a1a2e;
+    margin-bottom: 2px;
+}
+.cart-item-price {
+    font-size: 0.78rem;
+    color: #888;
+}
+.cart-item-total {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1a1a2e;
+    min-width: 60px;
+    text-align: right;
+}
+
+/* Qty Controls */
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: #f7f8fc;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.qty-btn:hover { background: #ffbe33; color: #1a1a2e; }
+.qty-btn.delete:hover { background: #ff416c; color: #fff; }
+.qty-value {
+    width: 28px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #1a1a2e;
+}
+
+/* Summary */
+.cart-summary {
+    padding: 16px 24px;
+    background: #fafbfd;
+    border-top: 1px solid #f0f0f0;
+}
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 0.88rem;
+    color: #666;
+}
+.summary-row.total-row {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+.summary-row.total-row span:last-child { color: #ffbe33; }
+.discount-row { color: #0d9b52 !important; }
+.discount-row span { color: #0d9b52 !important; }
+.summary-divider {
+    height: 1px;
+    background: #e8e8e8;
+    margin: 8px 0;
+}
+.free-delivery-hint {
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #fff5e0, #fff9ee);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    color: #c68a00;
+    margin-top: 8px;
+    font-weight: 500;
+}
+.free-delivery-hint i { margin-right: 6px; }
+
+/* Checkout Form */
+.checkout-form {
+    padding: 16px 24px 8px;
+    border-top: 1px solid #f0f0f0;
+}
+.checkout-form h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 12px;
+}
+.checkout-form input,
+.checkout-form textarea {
+    width: 100%;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    color: #1a1a2e;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    resize: none;
+}
+.checkout-form input:focus,
+.checkout-form textarea:focus {
+    border-color: #ffbe33;
+    box-shadow: 0 0 0 3px rgba(255,190,51,0.15);
+}
+.checkout-form input::placeholder,
+.checkout-form textarea::placeholder { color: #bbb; }
+
+/* Actions */
+.cart-actions {
+    padding: 16px 24px 24px;
+}
+.btn-whatsapp {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.btn-whatsapp:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(37,211,102,0.5);
+}
+.btn-whatsapp:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+.btn-whatsapp i { font-size: 20px; }
+
+/* Toast Notification */
+.premium-toast {
+    position: fixed;
+    bottom: 96px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1a1a2e;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    z-index: 9999;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.premium-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+.premium-toast .toast-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffbe33, #e78d25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #1a1a2e;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    #cart-drawer { width: 100%; max-width: 100vw; border-radius: 0; }
+    #floating-cart { bottom: 16px; right: 16px; width: 56px; height: 56px; font-size: 20px; }
+}
+</style>
+
+<!-- ============================================================
+     CART JAVASCRIPT
+     ============================================================ -->
+<script>
+    function toggleCartDrawer() {
+        const drawer = document.getElementById('cart-drawer');
+        const overlay = document.getElementById('cart-overlay');
+        const isOpen = drawer.classList.contains('open');
+        if (isOpen) {
+            drawer.classList.remove('open');
+            overlay.style.display = 'none';
+        } else {
+            drawer.classList.add('open');
+            overlay.style.display = 'block';
+            loadCartData();
+        }
+    }
+
+    function showToast(message) {
+        let existing = document.querySelector('.premium-toast');
+        if (existing) existing.remove();
+        let toast = document.createElement('div');
+        toast.className = 'premium-toast';
+        toast.innerHTML = `<span class="toast-icon">✓</span> ${message}`;
+        document.body.appendChild(toast);
+        requestAnimationFrame(() => { toast.classList.add('show'); });
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 400);
+        }, 2500);
+    }
+
+    function loadCartData() {
+        fetch('/get_cart/')
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('cart-items');
+            const summary = document.getElementById('cart-summary');
+            const checkoutForm = document.getElementById('checkout-form');
+            const btnCheckout = document.getElementById('btn-checkout');
+            const statusBanner = document.getElementById('shop-status-banner');
+            const statusText = document.getElementById('shop-status-text');
+
+            // Shop status
+            statusText.textContent = data.shop_message || '';
+            if (data.is_shop_open) {
+                statusBanner.className = 'shop-status open';
+            } else {
+                statusBanner.className = 'shop-status closed';
+            }
+
+            container.innerHTML = '';
+            if (data.items.length === 0) {
+                container.innerHTML = '<div class="empty-cart"><i class="fa fa-shopping-basket"></i>Your cart is empty.<br><small>Add some tasty items!</small></div>';
+                summary.style.display = 'none';
+                checkoutForm.style.display = 'none';
+                btnCheckout.disabled = true;
+            } else {
+                data.items.forEach(item => {
+                    container.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">₹${item.price.toFixed(2)} each</div>
+                        </div>
+                        <div class="qty-controls">
+                            ${item.qty <= 1
+                                ? `<button class="qty-btn delete" onclick="updateQty(${item.id}, 'delete')"><i class="fa fa-trash"></i></button>`
+                                : `<button class="qty-btn" onclick="updateQty(${item.id}, 'remove')">−</button>`
+                            }
+                            <span class="qty-value">${item.qty}</span>
+                            <button class="qty-btn" onclick="updateQty(${item.id}, 'add')">+</button>
+                        </div>
+                        <div class="cart-item-total">₹${item.item_total.toFixed(2)}</div>
+                    </div>`;
+                });
+
+                // Summary
+                summary.style.display = 'block';
+                checkoutForm.style.display = 'block';
+                document.getElementById('cart-subtotal').textContent = '₹' + data.subtotal.toFixed(2);
+                document.getElementById('cart-delivery').textContent = data.delivery_charge > 0 ? '₹' + data.delivery_charge.toFixed(2) : 'FREE';
+                document.getElementById('cart-grand-total').textContent = '₹' + data.grand_total.toFixed(2);
+
+                // Free delivery hint
+                const freeHint = document.getElementById('free-delivery-hint');
+                if (data.free_delivery_above > 0 && data.delivery_charge > 0) {
+                    const remaining = data.free_delivery_above - data.subtotal;
+                    if (remaining > 0) {
+                        freeHint.style.display = 'block';
+                        document.getElementById('free-delivery-text').textContent = `Add ₹${remaining.toFixed(2)} more for FREE delivery!`;
+                    } else {
+                        freeHint.style.display = 'none';
+                    }
+                } else if (data.delivery_charge === 0 && data.free_delivery_above > 0) {
+                    freeHint.style.display = 'block';
+                    document.getElementById('free-delivery-text').textContent = 'Free delivery applied! 🎉';
+                } else {
+                    freeHint.style.display = 'none';
+                }
+
+                // Discount
+                const discountRow = document.getElementById('discount-row');
+                if (data.discount > 0) {
+                    discountRow.style.display = 'flex';
+                    document.getElementById('discount-label').textContent = `Discount (${data.discount_percentage}%)`;
+                    document.getElementById('cart-discount').textContent = '-₹' + data.discount.toFixed(2);
+                } else {
+                    discountRow.style.display = 'none';
+                }
+
+                // Enable/disable checkout
+                btnCheckout.disabled = !data.is_shop_open;
+            }
+
+            document.getElementById('cart-count').textContent = data.total_items;
+        });
+    }
+
+    function updateQty(itemId, action) {
+        fetch(`/update_cart/${itemId}/?action=${action}`)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('cart-count').textContent = data.cart_count;
+            loadCartData();
+        });
+    }
+
+    function addToCart(event, itemId) {
+        event.preventDefault();
+        fetch('/add_to_cart/' + itemId + '/')
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                document.getElementById('cart-count').textContent = data.cart_count;
+                showToast('Added to cart!');
+            }
+        });
+    }
+
+    function checkoutWhatsApp() {
+        const name = document.getElementById('cust-name').value.trim();
+        const phone = document.getElementById('cust-phone').value.trim();
+        const address = document.getElementById('cust-address').value.trim();
+
+        if (!name) { showToast('Please enter your name'); return; }
+        if (!phone || phone.length < 10) { showToast('Please enter a valid phone number'); return; }
+        if (!address) { showToast('Please enter your delivery address'); return; }
+
+        fetch('/get_cart/')
+        .then(res => res.json())
+        .then(data => {
+            if (data.items.length === 0) {
+                showToast('Your cart is empty!');
+                return;
+            }
+            if (!data.is_shop_open) {
+                showToast('Shop is currently closed');
+                return;
+            }
+
+            let msg = `🛒 *New Order from Dinesh Dabeli Website*\n\n`;
+            msg += `👤 *Name:* ${name}\n`;
+            msg += `📱 *Phone:* ${phone}\n`;
+            msg += `📍 *Address:* ${address}\n\n`;
+            msg += `📋 *Order Details:*\n`;
+            msg += `${'─'.repeat(30)}\n`;
+            data.items.forEach(item => {
+                msg += `• ${item.name} × ${item.qty} = ₹${item.item_total.toFixed(2)}\n`;
+            });
+            msg += `${'─'.repeat(30)}\n`;
+            msg += `💰 Subtotal: ₹${data.subtotal.toFixed(2)}\n`;
+            if (data.delivery_charge > 0) {
+                msg += `🚚 Delivery: ₹${data.delivery_charge.toFixed(2)}\n`;
+            } else {
+                msg += `🚚 Delivery: FREE\n`;
+            }
+            if (data.discount > 0) {
+                msg += `🎉 Discount (${data.discount_percentage}%): -₹${data.discount.toFixed(2)}\n`;
+            }
+            msg += `\n✅ *Grand Total: ₹${data.grand_total.toFixed(2)}*\n`;
+            msg += `\nPlease confirm my order. Thank you! 🙏`;
+
+            let encodedMsg = encodeURIComponent(msg);
+            window.open(`https://wa.me/${data.whatsapp_number}?text=${encodedMsg}`, '_blank');
+        });
+    }
+
+    // Load initial cart count
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/get_cart/')
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('cart-count').textContent = data.total_items;
+        });
+    });
+</script>

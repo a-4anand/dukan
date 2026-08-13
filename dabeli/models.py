@@ -89,3 +89,27 @@ class Offer(models.Model):
 
     def __str__(self):
         return self.title
+
+class ShopSettings(models.Model):
+    whatsapp_number = models.CharField(max_length=15, default='919876543210', help_text="WhatsApp number with country code, e.g. 919876543210")
+    delivery_charge = models.DecimalField(max_digits=6, decimal_places=2, default=30.00, help_text="Delivery charge in ₹")
+    free_delivery_above = models.DecimalField(max_digits=6, decimal_places=2, default=200.00, help_text="Free delivery for orders above this amount. Set to 0 to always charge.")
+    discount_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0.00, help_text="Discount percentage on total (0 for no discount)")
+    discount_min_order = models.DecimalField(max_digits=6, decimal_places=2, default=0.00, help_text="Minimum order amount to apply discount")
+    is_delivery_available = models.BooleanField(default=True, help_text="Enable/disable delivery orders")
+    shop_open_message = models.CharField(max_length=200, default="We're open! Order now.", blank=True)
+    shop_closed_message = models.CharField(max_length=200, default="We're currently closed. Please try again later.", blank=True)
+    is_shop_open = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        from django.core.exceptions import ValidationError
+        if self.__class__.objects.count() and not self.pk:
+            raise ValidationError("You can only create one instance of Shop Settings.")
+        super(ShopSettings, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "Shop Settings"
+
+    class Meta:
+        verbose_name = "Shop Settings"
+        verbose_name_plural = "Shop Settings"

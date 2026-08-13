@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Contact, Rating, Category, MenuItem, HomePageContent, Offer
+from .models import Contact, Rating, Category, MenuItem, HomePageContent, Offer, ShopSettings
 
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
@@ -47,3 +47,13 @@ class RatingAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'css_class')
+
+@admin.register(ShopSettings)
+class ShopSettingsAdmin(admin.ModelAdmin):
+    list_display = ('whatsapp_number', 'delivery_charge', 'free_delivery_above', 'discount_percentage', 'is_shop_open')
+    fieldsets = (
+        ('WhatsApp', {'fields': ('whatsapp_number',)}),
+        ('Delivery', {'fields': ('is_delivery_available', 'delivery_charge', 'free_delivery_above')}),
+        ('Discounts', {'fields': ('discount_percentage', 'discount_min_order')}),
+        ('Shop Status', {'fields': ('is_shop_open', 'shop_open_message', 'shop_closed_message')}),
+    )

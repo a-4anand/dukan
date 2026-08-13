@@ -112,6 +112,7 @@ JAZZMIN_SETTINGS = {
         "dabeli.HomePageContent": "fas fa-home",
         "dabeli.Rating": "fas fa-star",
         "dabeli.Contact": "fas fa-envelope",
+        "dabeli.ShopSettings": "fas fa-cog",
     },
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
