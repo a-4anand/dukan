@@ -16,17 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import RedirectView
 from . import views
-from custom_admin.views import owner_login  # Import owner_login from custom_admin.views
 
 urlpatterns = [
     path("", views.index, name="Home"),
     path("contact/", views.contact_form, name="contact"),
     path("about/", views.about, name="about"),
     path("menu/", views.menu, name="menu"),
-    path("login/", owner_login, name="owner_login"),  # Use the correct import
+    path("login/", RedirectView.as_view(url='/admin/'), name="owner_login"),
     path("rate_us/", views.rate_us, name="rate_us"),
-path('submit_rating/', views.submit_rating, name='submit_rating'),
+    path('submit_rating/', views.submit_rating, name='submit_rating'),
     path('thank_you/', views.thank_you, name='thank_you'),
     path('add_to_cart/<int:item_id>/', views.add_to_cart, name='add_to_cart'),
     path('get_cart/', views.get_cart_data, name='get_cart'),
