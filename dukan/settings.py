@@ -120,7 +120,7 @@ JAZZMIN_SETTINGS = {
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
     "related_modal_active": False,
-    "custom_css": "admin_custom_v2.css",
+    "custom_css": "admin_custom_v3.css",
     "custom_js": None,
 }
 

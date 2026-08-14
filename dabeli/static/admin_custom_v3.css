@@ -211,6 +211,7 @@ body, .content-wrapper, .main-sidebar, .main-footer {
     border-color: rgba(0,0,0,0.05) !important;
     font-size: 0.9rem !important;
     color: #4a5568 !important;
+    background: transparent !important;
 }
 
 .table tbody td a {
@@ -342,4 +343,38 @@ table#result_list td a,
         font-weight: 600;
         color: #ffbe33;
     }
+}
+
+/* --- Dark Mode Overrides (Kill Dark Mode Cookie) --- */
+body.dark-mode, body.dark-mode .content-wrapper {
+    background-color: #f0f2f8 !important;
+    color: #1a1a2e !important;
+}
+
+body.dark-mode .card, body.dark-mode .info-box, body.dark-mode .small-box, body.dark-mode .timeline > div > .timeline-item {
+    background-color: #ffffff !important;
+    color: #1a1a2e !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+}
+
+body.dark-mode .card-header {
+    background: linear-gradient(135deg, #1a1a2e, #16213e) !important;
+    color: #fff !important;
+}
+
+body.dark-mode .table, body.dark-mode .table tbody tr, body.dark-mode .table tbody td {
+    background-color: transparent !important;
+}
+
+body.dark-mode .table tbody tr {
+    background-color: #ffffff !important;
+}
+
+body.dark-mode .timeline > div > .timeline-item > .timeline-header,
+body.dark-mode .timeline > div > .timeline-item > .time {
+    color: #4a5568 !important;
+}
+
+body.dark-mode .timeline > div > .timeline-item > .timeline-body {
+    color: #1a1a2e !important;
 }
