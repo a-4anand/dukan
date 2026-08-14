@@ -57,7 +57,7 @@ class MenuItem(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
-    image = models.ImageField(upload_to='menu_images/', blank=True, null=True)
+    image = models.ImageField(upload_to='menu_images/', blank=True, null=True, max_length=500)
     image_url = models.CharField(max_length=500, blank=True, null=True, help_text="Fallback for static images")
     order_link = models.URLField(blank=True, null=True)
     is_available = models.BooleanField(default=True)
@@ -70,13 +70,13 @@ class HomePageContent(models.Model):
     # Hero Section
     hero_title = models.CharField(max_length=200, default="TASTY")
     hero_subtitle = models.CharField(max_length=200, default="Treat Yourself: Relish Surat's tastiest Fast Food at Wallet-Friendly Prices!")
-    hero_image = models.ImageField(upload_to='site_images/', blank=True, null=True)
+    hero_image = models.ImageField(upload_to='site_images/', blank=True, null=True, max_length=500)
     hero_image_url = models.CharField(max_length=500, blank=True, null=True, help_text="Fallback for static images")
     
     # About Section
     about_title = models.CharField(max_length=200, default="We Are Dinesh Dabeli")
     about_text = models.TextField()
-    about_image = models.ImageField(upload_to='site_images/', blank=True, null=True)
+    about_image = models.ImageField(upload_to='site_images/', blank=True, null=True, max_length=500)
     about_image_url = models.CharField(max_length=500, blank=True, null=True, help_text="Fallback for static images")
 
     def save(self, *args, **kwargs):
@@ -91,7 +91,7 @@ class HomePageContent(models.Model):
 class Offer(models.Model):
     title = models.CharField(max_length=100)
     discount_text = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='offers/', blank=True, null=True)
+    image = models.ImageField(upload_to='offers/', blank=True, null=True, max_length=500)
     image_url = models.CharField(max_length=500, blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
