@@ -57,3 +57,8 @@ class ShopSettingsAdmin(admin.ModelAdmin):
         ('Discounts', {'fields': ('discount_percentage', 'discount_min_order')}),
         ('Shop Status', {'fields': ('is_shop_open', 'shop_open_message', 'shop_closed_message')}),
     )
+
+    def has_add_permission(self, request):
+        if self.model.objects.count() > 0:
+            return False
+        return super().has_add_permission(request)
