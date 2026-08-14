@@ -113,14 +113,14 @@
       <ul class="filters_menu">
         <li class="active" data-filter="*">All</li>
         {% for category in categories %}
-        <li data-filter=".{{ category.css_class }}">{{ category.name }}</li>
+        <li data-filter=".{{ category.name|slugify }}">{{ category.name }}</li>
         {% endfor %}
       </ul>
 
       <div class="filters-content">
         <div class="row grid">
           {% for item in items %}
-          <div class="col-sm-6 col-lg-4 all {{ item.category.css_class }}">
+          <div class="col-sm-6 col-lg-4 all {{ item.category.name|slugify }}">
             <div class="box" data-aos="fade-up" data-aos-duration="500">
               <div>
                 <div class="img-box">
