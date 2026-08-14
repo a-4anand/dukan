@@ -37,11 +37,19 @@ class Contact(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
-    css_class = models.CharField(max_length=50, help_text="CSS class for filtering (e.g., 'burger', 'pizza')")
+    name = models.CharField(max_length=100, help_text="Category name (e.g. Dabeli, Pizza, Burger)")
+    css_class = models.CharField(max_length=50, blank=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        from django.utils.text import slugify
+        self.css_class = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Categories"
 
 
 class MenuItem(models.Model):

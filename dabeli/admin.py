@@ -8,6 +8,9 @@ class MenuItemAdmin(admin.ModelAdmin):
     list_filter = ('category', 'is_available')
     search_fields = ('name', 'description')
     list_editable = ('price', 'is_available')
+    fieldsets = (
+        (None, {'fields': ('category', 'name', 'description', 'price', 'image', 'is_available')}),
+    )
     
     def image_preview(self, obj):
         if obj.image:
@@ -32,6 +35,11 @@ class OfferAdmin(admin.ModelAdmin):
 class HomePageContentAdmin(admin.ModelAdmin):
     list_display = ('hero_title', 'about_title')
 
+    def has_add_permission(self, request):
+        if self.model.objects.count() > 0:
+            return False
+        return super().has_add_permission(request)
+
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('name', 'category', 'created_at')
@@ -46,7 +54,8 @@ class RatingAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'css_class')
+    list_display = ('name',)
+    search_fields = ('name',)
 
 @admin.register(ShopSettings)
 class ShopSettingsAdmin(admin.ModelAdmin):
@@ -62,3 +71,4 @@ class ShopSettingsAdmin(admin.ModelAdmin):
         if self.model.objects.count() > 0:
             return False
         return super().has_add_permission(request)
+
