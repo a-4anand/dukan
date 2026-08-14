@@ -18,7 +18,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "cloudinary_storage",
     "django.contrib.staticfiles",
+    "cloudinary",
 ]
 
 MIDDLEWARE = [
@@ -162,3 +164,10 @@ JAZZMIN_UI_TWEAKS = {
     },
 }
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'r7gjf5ap'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '355365329696688'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', 'LzfJNT2hsR-iWvrCsDETeOMzHGE')
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
