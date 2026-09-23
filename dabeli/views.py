@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
-from .models import Contact, Category, MenuItem, HomePageContent, Rating, ShopSettings
+from .models import Contact, FranchiseInquiry, Category, MenuItem, HomePageContent, Rating, ShopSettings
 
 
 def get_shop_settings():
@@ -134,6 +134,29 @@ def contact_form(request):
         contact.save()
         messages.success(request, "Your message has been sent!")
     return render(request, 'contact.html')
+
+
+def franchise_inquiry(request):
+    shop = get_shop_settings()
+    if request.method == 'POST':
+        inquiry = FranchiseInquiry.objects.create(
+            name=request.POST.get('name', '').strip(),
+            phone=request.POST.get('phone', '').strip(),
+            email=request.POST.get('email', '').strip(),
+            locality=request.POST.get('locality', '').strip(),
+            city=request.POST.get('city', '').strip(),
+            budget=request.POST.get('budget', ''),
+            message=request.POST.get('message', '').strip(),
+        )
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'status': 'success',
+                'inquiry_id': inquiry.id,
+                'whatsapp_number': shop.whatsapp_number,
+            })
+        messages.success(request, "Thanks for your interest! Our franchise team will contact you shortly.")
+        return redirect('franchise_inquiry')
+    return render(request, 'franchise.html', {'shop': shop})
 
 
 def submit_rating(request):

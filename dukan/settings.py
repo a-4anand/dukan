@@ -106,13 +106,13 @@ JAZZMIN_SETTINGS = {
     "site_header": "Dinesh Dabeli",
     "site_brand": "Dinesh Dabeli",
     "welcome_sign": "Welcome to Dinesh Dabeli Admin",
-    "search_model": ["dabeli.MenuItem", "dabeli.Contact"],
+    "search_model": ["dabeli.MenuItem", "dabeli.Contact", "dabeli.FranchiseInquiry"],
     "show_ui_builder": False,
     "topmenu_links": [
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "View Site", "url": "/", "new_window": True},
     ],
-    "order_with_respect_to": ["dabeli", "dabeli.MenuItem", "dabeli.Offer", "dabeli.HomePageContent", "dabeli.Category", "dabeli.Rating", "dabeli.Contact"],
+    "order_with_respect_to": ["dabeli", "dabeli.MenuItem", "dabeli.Offer", "dabeli.HomePageContent", "dabeli.Category", "dabeli.Rating", "dabeli.Contact", "dabeli.FranchiseInquiry"],
     "icons": {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
@@ -123,6 +123,7 @@ JAZZMIN_SETTINGS = {
         "dabeli.HomePageContent": "fas fa-home",
         "dabeli.Rating": "fas fa-star",
         "dabeli.Contact": "fas fa-envelope",
+        "dabeli.FranchiseInquiry": "fas fa-store",
         "dabeli.ShopSettings": "fas fa-cog",
     },
     "default_icon_parents": "fas fa-chevron-circle-right",

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dinesh-dabeli-v1';
+const CACHE_NAME = 'dinesh-dabeli-v2';
 const urlsToCache = [
   '/',
   '/menu/',
@@ -14,6 +14,19 @@ self.addEventListener('install', event => {
       .then(cache => {
         return cache.addAll(urlsToCache);
       })
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+      .then(cacheNames => Promise.all(
+        cacheNames
+          .filter(cacheName => cacheName !== CACHE_NAME)
+          .map(cacheName => caches.delete(cacheName))
+      ))
+      .then(() => self.clients.claim())
   );
 });
 

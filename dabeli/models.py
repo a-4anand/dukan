@@ -36,6 +36,28 @@ class Contact(models.Model):
         return self.name
 
 
+class FranchiseInquiry(models.Model):
+    BUDGET_CHOICES = [
+        ('under_5l', 'Under ₹5 lakh'),
+        ('5l_10l', '₹5–10 lakh'),
+        ('10l_20l', '₹10–20 lakh'),
+        ('above_20l', 'Above ₹20 lakh'),
+    ]
+
+    name = models.CharField(max_length=255)
+    phone = models.CharField(max_length=20)
+    email = models.EmailField()
+    locality = models.CharField(max_length=100, blank=True, default='')
+    city = models.CharField(max_length=100)
+    budget = models.CharField(max_length=20, choices=BUDGET_CHOICES, blank=True)
+    message = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        location = ', '.join(part for part in (self.locality, self.city) if part)
+        return f"{self.name} — {location}"
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100, help_text="Category name (e.g. Dabeli, Pizza, Burger)")
     css_class = models.CharField(max_length=50, blank=True, editable=False)

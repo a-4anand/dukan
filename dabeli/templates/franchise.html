@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Submit an inquiry to open a Dinesh Dabeli franchise.">
+  <title>Dinesh Dabeli | Inquire for Franchise</title>
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/png">
+  <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'responsive.css' %}">
+  <style>
+    .franchise-page { background: #fffaf4; color: #222831; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .franchise-page .hero_area { min-height: 385px; }
+    .franchise-page .hero_area::before { background: linear-gradient(100deg, rgba(34, 40, 49, .94), rgba(34, 40, 49, .63)); }
+    .franchise-page .bg-box img { filter: brightness(35%) saturate(82%); }
+    .franchise-hero { color: #fff; padding: 58px 15px 96px; position: relative; text-align: left; z-index: 2; }
+    .franchise-eyebrow { align-items: center; color: #f8c34a; display: flex; font-size: .78rem; font-weight: 800; gap: 9px; letter-spacing: 1.5px; margin: 0 0 15px; text-transform: uppercase; }
+    .franchise-eyebrow::before { background: #f8c34a; border-radius: 50%; content: ''; height: 8px; width: 8px; }
+    .franchise-hero h1 { color: #fff; font-family: inherit; font-size: clamp(2.25rem, 4vw, 4.15rem); font-weight: 750; letter-spacing: -.055em; line-height: 1.04; margin: 0; max-width: 730px; }
+    .franchise-hero-copy { color: rgba(255, 255, 255, .82); font-size: 1.04rem; line-height: 1.65; margin: 18px 0 0; max-width: 590px; }
+    .franchise-highlights { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 25px; }
+    .franchise-highlights span { background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .19); border-radius: 99px; color: #fff; font-size: .83rem; padding: 8px 12px; }
+    .franchise-shell { margin: -47px auto 72px; max-width: 1120px; padding: 0 20px; position: relative; z-index: 3; }
+    .franchise-layout { display: grid; grid-template-columns: minmax(270px, .82fr) minmax(0, 1.35fr); box-shadow: 0 24px 70px rgba(42, 31, 13, .13); }
+    .partner-panel { background: #222831; color: #fff; padding: 42px 36px; }
+    .partner-panel .eyebrow { color: #f8c34a; font-size: .74rem; font-weight: 800; letter-spacing: 1.35px; margin: 0 0 13px; text-transform: uppercase; }
+    .partner-panel h2 { color: #fff; font-family: inherit; font-size: clamp(1.6rem, 2.6vw, 2.25rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.15; margin: 0 0 15px; }
+    .partner-panel > p { color: rgba(255, 255, 255, .7); font-size: .95rem; line-height: 1.6; margin-bottom: 30px; }
+    .benefit { align-items: flex-start; border-top: 1px solid rgba(255, 255, 255, .14); display: flex; gap: 13px; padding: 17px 0; }
+    .benefit:last-child { border-bottom: 1px solid rgba(255, 255, 255, .14); }
+    .benefit-icon { align-items: center; background: rgba(248, 195, 74, .14); border-radius: 50%; color: #f8c34a; display: flex; flex: 0 0 33px; font-size: .82rem; height: 33px; justify-content: center; }
+    .benefit strong { color: #fff; display: block; font-size: .96rem; margin: 1px 0 3px; }
+    .benefit span { color: rgba(255, 255, 255, .63); font-size: .82rem; line-height: 1.4; }
+    .application-card { background: #fff; padding: 42px 44px; }
+    .application-head { align-items: center; border-bottom: 1px solid #ebe8e1; display: flex; gap: 15px; margin-bottom: 28px; padding-bottom: 23px; }
+    .application-step { align-items: center; background: #fff4da; border-radius: 50%; color: #b77600; display: flex; flex: 0 0 42px; font-size: .76rem; font-weight: 800; height: 42px; justify-content: center; letter-spacing: .04em; }
+    .application-head h2 { color: #222831; font-family: inherit; font-size: 1.55rem; font-weight: 750; letter-spacing: -.035em; margin: 0; }
+    .application-head p { color: #73777c; font-size: .88rem; margin: 3px 0 0; }
+    .franchise-fields { display: grid; gap: 19px 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .franchise-field { min-width: 0; }
+    .franchise-field.full { grid-column: 1 / -1; }
+    .franchise-field label { color: #343942; display: block; font-size: .79rem; font-weight: 750; letter-spacing: .02em; margin: 0 0 7px; }
+    .franchise-field label .optional { color: #96999e; font-weight: 500; }
+    .franchise-page .form-control { background: #fffdf9; border: 1px solid #e1ddd5; border-radius: 8px; box-shadow: none; color: #222831; font-size: .95rem; height: 48px; padding: 10px 13px; transition: border-color .18s ease, box-shadow .18s ease; width: 100%; }
+    .franchise-page textarea.form-control { height: 96px; resize: vertical; }
+    .franchise-page .form-control:focus { background: #fff; border-color: #c88716; box-shadow: 0 0 0 3px rgba(200, 135, 22, .13); outline: none; }
+    .form-footer { align-items: center; display: flex; flex-wrap: wrap; gap: 14px 19px; margin-top: 28px; }
+    .franchise-submit { align-items: center; background: #ffbe33; border: 0; border-radius: 8px; color: #222831; cursor: pointer; display: inline-flex; font-size: .93rem; font-weight: 800; gap: 9px; justify-content: center; min-height: 50px; padding: 12px 18px; transition: background .18s ease, transform .18s ease; }
+    .franchise-submit:hover { background: #e69f00; color: #fff; transform: translateY(-1px); }
+    .franchise-submit:disabled { cursor: wait; opacity: .7; transform: none; }
+    .form-note { color: #7a847f; font-size: .79rem; margin: 0; }
+    #franchise-status { font-size: .85rem; margin: 15px 0 0; }
+    .franchise-page .footer_section { margin-top: 0; }
+    @media (max-width: 840px) { .franchise-layout { grid-template-columns: 1fr; } .partner-panel { padding: 32px 29px; } .application-card { padding: 34px 29px; } }
+    @media (max-width: 576px) { .franchise-page .hero_area { min-height: 345px; } .franchise-hero { padding: 42px 22px 85px; } .franchise-shell { margin-top: -35px; padding: 0 13px; } .franchise-fields { grid-template-columns: 1fr; } .franchise-field.full { grid-column: auto; } .application-card, .partner-panel { padding: 29px 22px; } .application-head { align-items: flex-start; } .form-footer { align-items: stretch; flex-direction: column; } .franchise-submit { width: 100%; } }
+  </style>
+</head>
+<body class="sub_page franchise-page">
+  <div class="hero_area">
+    <div class="bg-box"><img src="{% static 'images/hero-bg.jpg' %}" alt="Dinesh Dabeli"></div>
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="/"><span><img src="{% static 'images/new_logo.png' %}" alt="Dinesh Dabeli logo"></span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
+              <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+              <li class="nav-item active"><a class="nav-link" href="{% url 'franchise_inquiry' %}">Franchise <span class="sr-only">(current)</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/rate_us">Rate Us</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'owner_login' %}">Login</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <section class="franchise-hero container">
+      <p class="franchise-eyebrow">Franchise partnership</p>
+      <h1>Bring Dinesh Dabeli to your neighbourhood.</h1>
+      <p class="franchise-hero-copy">Tell us where you want to grow. Our team will guide you from your first conversation to opening day.</p>
+      <div class="franchise-highlights"><span>Guided setup</span><span>Operational training</span><span>Local growth</span></div>
+    </section>
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <main class="franchise-shell">
+    <section class="franchise-layout" aria-labelledby="franchise-form-title">
+      <aside class="partner-panel">
+        <p class="eyebrow">Why partner with us</p>
+        <h2>A trusted taste, built for local demand.</h2>
+        <p>We are looking for committed partners who care about great food and the community they serve.</p>
+        <div class="benefit"><div class="benefit-icon"><i class="fa fa-map-marker" aria-hidden="true"></i></div><div><strong>Local-fit guidance</strong><span>Plan your outlet around the neighbourhood you know best.</span></div></div>
+        <div class="benefit"><div class="benefit-icon"><i class="fa fa-graduation-cap" aria-hidden="true"></i></div><div><strong>Practical training</strong><span>Get support for setup, recipes, and daily operations.</span></div></div>
+        <div class="benefit"><div class="benefit-icon"><i class="fa fa-handshake-o" aria-hidden="true"></i></div><div><strong>Dedicated support</strong><span>Connect with our team as you take the next step.</span></div></div>
+      </aside>
+      <section class="application-card">
+        <div class="application-head">
+          <span class="application-step">01</span>
+          <div><h2 id="franchise-form-title">Start your application</h2><p>Share a few details. It takes less than two minutes.</p></div>
+        </div>
+        <form id="franchise-inquiry-form" method="post" action="{% url 'franchise_inquiry' %}">
+          {% csrf_token %}
+          <div class="franchise-fields">
+            <div class="franchise-field"><label for="name">Full name</label><input class="form-control" id="name" name="name" type="text" autocomplete="name" required></div>
+            <div class="franchise-field"><label for="phone">Phone number</label><input class="form-control" id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
+            <div class="franchise-field"><label for="email">Email address</label><input class="form-control" id="email" name="email" type="email" autocomplete="email" required></div>
+            <div class="franchise-field"><label for="locality">Preferred locality</label><input class="form-control" id="locality" name="locality" type="text" placeholder="e.g. Vesu, Althan" required></div>
+            <div class="franchise-field"><label for="city">City</label><input class="form-control" id="city" name="city" type="text" autocomplete="address-level2" placeholder="e.g. Surat" required></div>
+            <div class="franchise-field"><label for="budget">Investment budget <span class="optional">(optional)</span></label><select class="form-control" id="budget" name="budget"><option value="">Select a range</option><option value="under_5l">Under ₹5 lakh</option><option value="5l_10l">₹5–10 lakh</option><option value="10l_20l">₹10–20 lakh</option><option value="above_20l">Above ₹20 lakh</option></select></div>
+            <div class="franchise-field full"><label for="message">Anything else you'd like us to know? <span class="optional">(optional)</span></label><textarea class="form-control" id="message" name="message" placeholder="Tell us briefly about your plan or experience."></textarea></div>
+          </div>
+          <div class="form-footer"><button class="franchise-submit" id="franchise-submit" type="submit"><i class="fa fa-whatsapp" aria-hidden="true"></i>Continue on WhatsApp</button><p class="form-note">Your details will be shared with our franchise team.</p></div>
+          <p id="franchise-status" class="text-success" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer_section">
+    <div class="container text-center"><p class="mb-0">&copy; <span id="displayYear"></span> Dinesh Dabeli. All Rights Reserved.</p></div>
+  </footer>
+  <script>
+    document.getElementById('displayYear').textContent = new Date().getFullYear();
+
+    const menuButton = document.querySelector('.navbar-toggler');
+    const mobileMenu = document.getElementById('navbarSupportedContent');
+    menuButton.addEventListener('click', function () {
+      const isOpen = mobileMenu.classList.toggle('show');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.getElementById('franchise-inquiry-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const submitButton = document.getElementById('franchise-submit');
+      const status = document.getElementById('franchise-status');
+      const formData = new FormData(form);
+      const budget = document.getElementById('budget');
+      const budgetLabel = budget.options[budget.selectedIndex].text;
+      status.classList.remove('text-danger');
+      status.classList.add('text-success');
+      submitButton.disabled = true;
+      status.textContent = 'Preparing your WhatsApp message…';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+        .then(response => {
+          if (!response.ok) throw new Error('Unable to submit inquiry');
+          return response.json();
+        })
+        .then(data => {
+          let message = '🏪 *New Franchise Inquiry*\n\n';
+          message += '━━━━━━━━━━━━━━━━\n';
+          message += `👤 *Name:* ${formData.get('name').trim()}\n`;
+          message += `📱 *Phone:* ${formData.get('phone').trim()}\n`;
+          message += `✉️ *Email:* ${formData.get('email').trim()}\n`;
+          message += `📍 *Preferred locality:* ${formData.get('locality').trim()}\n`;
+          message += `🏙️ *City:* ${formData.get('city').trim()}\n`;
+          message += `💰 *Investment budget:* ${budgetLabel}\n`;
+          const note = formData.get('message').trim();
+          if (note) message += `📝 *Message:* ${note}\n`;
+          message += '━━━━━━━━━━━━━━━━\n\n';
+          message += 'Please share the next steps for opening a Dinesh Dabeli franchise.';
+
+          status.textContent = 'Opening WhatsApp…';
+          window.open(`https://wa.me/${data.whatsapp_number}?text=${encodeURIComponent(message)}`, '_blank');
+          form.reset();
+          status.textContent = 'Your inquiry was saved and WhatsApp is ready to send.';
+        })
+        .catch(() => {
+          status.textContent = 'We could not prepare WhatsApp. Please try again.';
+          status.classList.remove('text-success');
+          status.classList.add('text-danger');
+        })
+        .finally(() => { submitButton.disabled = false; });
+    });
+  </script>
+</body>
+</html>

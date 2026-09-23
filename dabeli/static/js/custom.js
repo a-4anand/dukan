@@ -1,3 +1,24 @@
+// Mobile navigation works even when the optional jQuery/Bootstrap scripts are unavailable.
+(function () {
+    function setupMobileNavigation() {
+        var menuButton = document.querySelector('.navbar-toggler');
+        var mobileMenu = document.getElementById('navbarSupportedContent');
+        if (!menuButton || !mobileMenu || menuButton.dataset.menuReady === 'true') return;
+
+        menuButton.dataset.menuReady = 'true';
+        menuButton.addEventListener('click', function () {
+            var isOpen = mobileMenu.classList.toggle('show');
+            menuButton.setAttribute('aria-expanded', String(isOpen));
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupMobileNavigation);
+    } else {
+        setupMobileNavigation();
+    }
+}());
+
 // to get current year
 function getYear() {
     var currentDate = new Date();

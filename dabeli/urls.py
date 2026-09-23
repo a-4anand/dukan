@@ -22,6 +22,7 @@ from . import views
 urlpatterns = [
     path("", views.index, name="Home"),
     path("contact/", views.contact_form, name="contact"),
+    path("franchise/", views.franchise_inquiry, name="franchise_inquiry"),
     path("about/", views.about, name="about"),
     path("menu/", views.menu, name="menu"),
     path("login/", RedirectView.as_view(url='/admin/'), name="owner_login"),
@@ -32,5 +33,4 @@ urlpatterns = [
     path('update_cart/<int:item_id>/', views.update_cart, name='update_cart'),
     path('get_cart/', views.get_cart_data, name='get_cart'),
 ]
-
 

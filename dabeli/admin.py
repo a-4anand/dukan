@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Contact, Rating, Category, MenuItem, HomePageContent, Offer, ShopSettings
+from .models import Contact, FranchiseInquiry, Rating, Category, MenuItem, HomePageContent, Offer, ShopSettings
 
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
@@ -46,6 +46,14 @@ class ContactAdmin(admin.ModelAdmin):
     list_filter = ('category', 'created_at')
     search_fields = ('name', 'message', 'phone')
 
+
+@admin.register(FranchiseInquiry)
+class FranchiseInquiryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'email', 'locality', 'city', 'budget', 'created_at')
+    list_filter = ('budget', 'created_at')
+    search_fields = ('name', 'phone', 'email', 'locality', 'city')
+    readonly_fields = ('created_at',)
+
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
     list_display = ('name', 'rating', 'submitted_at')
@@ -71,4 +79,3 @@ class ShopSettingsAdmin(admin.ModelAdmin):
         if self.model.objects.count() > 0:
             return False
         return super().has_add_permission(request)
-
