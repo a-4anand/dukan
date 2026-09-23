@@ -41,6 +41,111 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<style>
+  .about_section .detail-box p {
+    line-height: 1.8;
+  }
+
+  .locate-branches-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: #ffbe33;
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform .2s ease, background .2s ease;
+  }
+
+  .locate-branches-button:hover,
+  .locate-branches-button:focus {
+    color: #ffffff;
+    background: #e69c00;
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  .branch_locator_section {
+    padding: 82px 0;
+    background: #f8f8f8;
+  }
+
+  .branch_locator_heading {
+    max-width: 650px;
+    margin: 0 auto 34px;
+    text-align: center;
+  }
+
+  .branch_locator_heading h2 {
+    color: #222831;
+    font-weight: 700;
+  }
+
+  .branch_locator_heading p {
+    margin: 10px 0 0;
+    color: #6c757d;
+  }
+
+  .branch-card {
+    display: flex;
+    align-items: center;
+    min-height: 100%;
+    padding: 22px;
+    border: 1px solid #e7e1d7;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 10px 26px rgba(34, 40, 49, .08);
+  }
+
+  .branch-card-marker {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    margin-right: 15px;
+    border-radius: 50%;
+    background: #fff3d5;
+    color: #c78200;
+    font-size: 20px;
+    line-height: 42px;
+    text-align: center;
+  }
+
+  .branch-card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .branch-card h3 {
+    margin: 0 0 4px;
+    color: #222831;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .branch-card p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+  }
+
+  .branch-card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #c78200;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .branch-card a:hover,
+  .branch-card a:focus {
+    color: #9e6500;
+    text-decoration: underline;
+  }
+</style>
+
 </head>
 
 <body class="sub_page">
@@ -80,7 +185,10 @@
                 <a class="nav-link" href="/contact">Contact</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/franchise/">Franchise</a>
+                <a class="nav-link" href="/about/#our-branches">Locate Our Branches</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/franchise/">Apply for Franchise</a>
               </li>
 
                <li class="nav-item">
@@ -127,12 +235,17 @@
 
             
             <p>
-              Dinesh Dabeli embarked on its journey in 2011 as a humble roadside fast-food stall adjacent to DRB College in New City Light, Udhana, Gujarat. Operating initially on the footpath, the establishment was a family endeavor with the dedicated efforts of the Dubey family members, who worked tirelessly to transform their dream into reality. Overcoming challenges through unwavering determination and continuous hard work, we witnessed substantial growth.
-
-In 2016, a new milestone was achieved as we proudly inaugurated our second branch in Bhimrad, Surat. Alongside our renowned Dabeli, we introduced the popular Vadapav to our menu, catering to diverse palates. The year 2023 marked a significant transition from a stall to a permanent shop, reflecting our commitment to excellence.
-
-Building upon our success, we proudly inaugurated our third branch in a new location in the same year. Presently, Dinesh Dabeli boasts three thriving branches, a dedicated team of six skilled workers, and the leadership of Dinesh Dubey along with his father, Shyam Murari Dubey. Our journey is a testament to passion, hard work, and the enduring commitment to providing delightful culinary experiences. Welcome to the world of Dinesh Dabeli, where each bite tells a story of our rich heritage and culinary expertise.
+              Dinesh Dabeli began in 2011 as a humble roadside fast-food stall beside DRB College in New City Light, Udhana. Built through the dedication of the Dubey family, our little stall grew one happy customer at a time.
             </p>
+            <p>
+              In 2016, we opened our Bhimrad branch and added Vadapav alongside our signature Dabeli. By 2023, we had moved from a stall to permanent shops and continued taking the same authentic Surati taste to more neighbourhoods.
+            </p>
+            <p>
+              Today, Dinesh Dabeli proudly serves Surat through five locations, including Aagam Arcade and Green Arcade, Shop No. 2. Every branch is guided by the same passion for fresh, flavourful street food and warm service.
+            </p>
+            <a class="locate-branches-button" href="#our-branches">
+              <span aria-hidden="true">⌖</span> Locate Our Branches
+            </a>
 
           </div>
         </div>
@@ -141,6 +254,67 @@ Building upon our success, we proudly inaugurated our third branch in a new loca
   </section>
 
   <!-- end about section -->
+
+  <section class="branch_locator_section" id="our-branches" aria-labelledby="branches-heading">
+    <div class="container">
+      <div class="branch_locator_heading">
+        <h2 id="branches-heading">Locate Our Branches</h2>
+        <p>Choose a Dinesh Dabeli location below to open directions in Google Maps.</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <article class="branch-card">
+            <div class="branch-card-marker" aria-hidden="true">1</div>
+            <div class="branch-card-content">
+              <h3>Dinesh Dabeli — Bheemrad</h3>
+              <p>Bheemrad, Surat.</p>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=21.1345095%2C72.800678" target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <article class="branch-card">
+            <div class="branch-card-marker" aria-hidden="true">2</div>
+            <div class="branch-card-content">
+              <h3>Dinesh Dabeli — Althan VIP Road</h3>
+              <p>Althan VIP Road, Surat.</p>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=21.1534602%2C72.7987414" target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <article class="branch-card">
+            <div class="branch-card-marker" aria-hidden="true">3</div>
+            <div class="branch-card-content">
+              <h3>Dinesh Dabeli — Vesu</h3>
+              <p>Vesu, Surat.</p>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=21.145763%2C72.7736544" target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <article class="branch-card">
+            <div class="branch-card-marker" aria-hidden="true">4</div>
+            <div class="branch-card-content">
+              <h3>Dinesh Dabeli — Aagam Arcade, Surat</h3>
+              <p>Aagam Arcade, Surat.</p>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Aagam%20Arcade%2C%20Surat" target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <article class="branch-card">
+            <div class="branch-card-marker" aria-hidden="true">5</div>
+            <div class="branch-card-content">
+              <h3>Dinesh Dabeli — Green Arcade, Surat</h3>
+              <p>Shop No. 2, Green Arcade, Surat.</p>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Green%20Arcade%2C%20Surat" target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- footer section -->
   <footer class="footer_section">

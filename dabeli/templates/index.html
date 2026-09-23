@@ -34,19 +34,6 @@
 <link href="../static/style.css" rel="stylesheet" >
   <!-- responsive style -->
   <link href="../static/responsive.css" rel="stylesheet" />
-  <style>
-    #franchiseModal { align-items: center; background: rgba(0, 0, 0, .68); display: none; inset: 0; justify-content: center; padding: 16px; position: fixed; z-index: 1070; }
-    #franchiseModal.is-visible { display: flex; }
-    .franchise-modal-dialog { max-width: 500px; width: 100%; }
-    #franchiseModal .modal-content { background: #fff; border: 0; border-radius: 18px; overflow: hidden; }
-    #franchiseModal .modal-header { align-items: center; background: #222831; border: 0; display: flex; justify-content: space-between; padding: 22px 28px; }
-    #franchiseModal .modal-title { color: #ffbe33; font-family: 'Dancing Script', cursive; font-size: 30px; font-weight: 700; margin: 0; }
-    #franchiseModal .close { background: transparent; border: 0; color: #fff; cursor: pointer; font-size: 30px; line-height: 1; opacity: .95; padding: 0; text-shadow: none; }
-    .franchise-opportunity-tag { color: #e69f00; font-size: 12px; font-weight: 700; letter-spacing: 1.4px; }
-    .franchise-apply-btn { background: #ffbe33; border-radius: 6px; color: #fff; display: inline-block; font-weight: 700; padding: 12px 22px; text-decoration: none; }
-    .franchise-apply-btn:hover { background: #e69f00; color: #fff; text-decoration: none; }
-  </style>
-
   <!-- Add these lines to include Bootstrap CSS and JS files -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -94,6 +81,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/contact">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about/#our-branches"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i>Locate Our Branches</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'franchise_inquiry' %}"><i class="fa fa-briefcase mr-1" aria-hidden="true"></i>Apply for Franchise</a>
@@ -462,25 +452,6 @@
 
   <!-- end client section -->
 
-  <!-- franchise promotion popup -->
-  <div id="franchiseModal" role="dialog" aria-labelledby="franchiseModalTitle" aria-modal="true" aria-hidden="true">
-    <div class="franchise-modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title" id="franchiseModalTitle">Dinesh Dabeli</h2>
-          <button type="button" class="close" data-franchise-close aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-        <div class="modal-body text-center">
-          <p class="franchise-opportunity-tag mb-2">BUSINESS OPPORTUNITY</p>
-          <h3>Own a Dinesh Dabeli Franchise</h3>
-          <p class="text-muted mb-4">Turn your passion for authentic Surati taste into a thriving business. We provide guidance, training, and operational support.</p>
-          <a class="franchise-apply-btn" href="{% url 'franchise_inquiry' %}"><i class="fa fa-whatsapp mr-2" aria-hidden="true"></i>Apply for Franchise</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- end franchise promotion popup -->
-
   <!-- footer section -->
   <footer class="footer_section">
     <div class="container">
@@ -581,31 +552,6 @@
   <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
   <!-- custom js -->
   <script src="../static/js/custom.js"></script>
-  <script>
-    (function () {
-      const franchiseModal = document.getElementById('franchiseModal');
-      const closeFranchiseModal = function () {
-        franchiseModal.classList.remove('is-visible');
-        franchiseModal.setAttribute('aria-hidden', 'true');
-      };
-
-      window.addEventListener('load', function () {
-        window.setTimeout(function () {
-          franchiseModal.classList.add('is-visible');
-          franchiseModal.setAttribute('aria-hidden', 'false');
-        }, 800);
-      });
-
-      franchiseModal.querySelector('[data-franchise-close]').addEventListener('click', closeFranchiseModal);
-      franchiseModal.addEventListener('click', function (event) {
-        if (event.target === franchiseModal) closeFranchiseModal();
-      });
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') closeFranchiseModal();
-      });
-
-    }());
-  </script>
   <!-- Google Map -->
 
   <!-- End Google Map -->
