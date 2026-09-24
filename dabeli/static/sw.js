@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dinesh-dabeli-v3';
+const CACHE_NAME = 'dinesh-dabeli-v4';
 const urlsToCache = [
   '/',
   '/menu/',
