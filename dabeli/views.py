@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
+from django.views.decorators.cache import cache_page
 from django.contrib.auth import authenticate, login
 from .models import Contact, FranchiseInquiry, Category, MenuItem, HomePageContent, Rating, ShopSettings
 
@@ -29,6 +30,7 @@ def about(request):
     return render(request, 'about.html')
 
 
+@cache_page(300)
 def menu(request):
     categories = Category.objects.all()
     items = MenuItem.objects.filter(is_available=True).select_related('category')
