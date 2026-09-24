@@ -1,8 +1,29 @@
+import logging
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
+from django.core.management import call_command
 from .models import Contact, FranchiseInquiry, Category, MenuItem, HomePageContent, Rating, ShopSettings
+
+
+logger = logging.getLogger(__name__)
+
+
+def ensure_menu_assets_loaded():
+    """Import the bundled catalog if a Render deploy skipped the build hook."""
+    priced_catalog_items = MenuItem.objects.filter(
+        is_available=True,
+        image_url__startswith='/static/menu_assets/',
+    ).count()
+    if priced_catalog_items >= 100:
+        return
+
+    try:
+        call_command('import_menu_assets', verbosity=0)
+    except Exception:
+        logger.exception('Unable to synchronize the bundled menu catalog')
 
 
 def get_shop_settings():
@@ -13,6 +34,7 @@ def get_shop_settings():
 
 
 def index(request):
+    ensure_menu_assets_loaded()
     home_content = HomePageContent.objects.first()
     categories = Category.objects.all()
     items = MenuItem.objects.filter(is_available=True)
@@ -30,6 +52,7 @@ def about(request):
 
 
 def menu(request):
+    ensure_menu_assets_loaded()
     categories = Category.objects.all()
     items = MenuItem.objects.filter(is_available=True)
     shop = get_shop_settings()
