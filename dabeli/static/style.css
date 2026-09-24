@@ -156,18 +156,44 @@ img { max-width: 100%; }
 }
 
 .custom_nav-container { padding: 0; }
-.custom_nav-container .navbar-nav { padding-left: 12%; }
+.custom_nav-container .navbar-nav {
+  padding-left: 0;
+  align-items: stretch;
+}
 
 .custom_nav-container .navbar-nav .nav-item .nav-link {
-  padding: 6px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 6px 12px;
   color: rgba(255,255,255,0.88);
   text-transform: uppercase;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  text-align: center;
   border-radius: 50px;
   transition: var(--transition);
   position: relative;
+}
+
+/* Keep the full desktop navigation on one calm baseline. The links are
+   allowed to wrap again inside the compact mobile drawer below. */
+@media (min-width: 993px) {
+  .custom_nav-container .navbar-brand { flex-shrink: 0; margin-right: 14px; }
+  .custom_nav-container .navbar-nav { flex-wrap: nowrap; }
+  .custom_nav-container .navbar-nav .nav-item .nav-link { white-space: nowrap; }
+}
+
+@media (min-width: 993px) and (max-width: 1199px) {
+  .custom_nav-container .navbar-nav .nav-item .nav-link {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 0.68rem;
+    letter-spacing: 0.7px;
+  }
 }
 
 .custom_nav-container .navbar-nav .nav-item .nav-link::after {
@@ -433,7 +459,8 @@ img { max-width: 100%; }
 }
 
 .food_section .box .img-box {
-  height: 220px;
+  height: auto;
+  aspect-ratio: 1.9 / 1;
   overflow: hidden;
   position: relative;
   background: #1a1a2e;
@@ -454,6 +481,7 @@ img { max-width: 100%; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   position: static;
   border-radius: 0;
   transition: transform 0.5s ease;
@@ -965,7 +993,7 @@ img { max-width: 100%; }
   .food_section .filters_menu li { padding: 8px 20px; font-size: 0.85rem; margin-bottom: 8px; }
 
   .food_section .filters-content .all { width: 100% !important; }
-  .food_section .box .img-box { height: 220px; }
+  .food_section .box .img-box { aspect-ratio: 1.9 / 1; height: auto; }
 
   .about_section .img-box::before { display: none; }
 
