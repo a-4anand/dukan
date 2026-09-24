@@ -159,10 +159,18 @@
     document.addEventListener('DOMContentLoaded', function () {
       const menuButton = document.querySelector('.navbar-toggler');
       const mobileMenu = document.getElementById('navbarSupportedContent');
-      menuButton.addEventListener('click', function () {
+      let lastTouchAt = 0;
+      function toggleMobileMenu(event) {
+        if (event && event.type === 'click' && Date.now() - lastTouchAt < 600) return;
         const isOpen = mobileMenu.classList.toggle('show');
         menuButton.setAttribute('aria-expanded', String(isOpen));
-      });
+      }
+      menuButton.addEventListener('click', toggleMobileMenu);
+      menuButton.addEventListener('touchend', function (event) {
+        event.preventDefault();
+        lastTouchAt = Date.now();
+        toggleMobileMenu(event);
+      }, { passive: false });
       toggleFranchiseDrawer(true);
     });
   </script>

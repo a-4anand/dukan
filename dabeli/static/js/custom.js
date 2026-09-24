@@ -6,10 +6,18 @@
         if (!menuButton || !mobileMenu || menuButton.dataset.menuReady === 'true') return;
 
         menuButton.dataset.menuReady = 'true';
-        menuButton.addEventListener('click', function () {
+        var lastTouchAt = 0;
+        function toggleMobileMenu(event) {
+            if (event && event.type === 'click' && Date.now() - lastTouchAt < 600) return;
             var isOpen = mobileMenu.classList.toggle('show');
             menuButton.setAttribute('aria-expanded', String(isOpen));
-        });
+        }
+        menuButton.addEventListener('click', toggleMobileMenu);
+        menuButton.addEventListener('touchend', function (event) {
+            event.preventDefault();
+            lastTouchAt = Date.now();
+            toggleMobileMenu(event);
+        }, { passive: false });
     }
 
     if (document.readyState === 'loading') {

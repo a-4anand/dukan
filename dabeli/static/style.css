@@ -240,6 +240,14 @@ img { max-width: 100%; }
   top: 0;
 }
 
+/* Keep the mobile menu usable even when Bootstrap's optional JavaScript is unavailable. */
+@media (max-width: 991px) {
+  .custom_nav-container .navbar-collapse.show {
+    display: block !important;
+    visibility: visible;
+  }
+}
+
 /* ============================================================
    HERO SLIDER
    ============================================================ */
