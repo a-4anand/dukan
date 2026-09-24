@@ -131,7 +131,7 @@
             <div class="box">
               <div>
                 <div class="img-box">
-                  <img src="{% if item.image %}{{ item.image.url }}{% else %}{{ item.image_url|menu_image_url }}{% endif %}" alt="{{ item.name }}">
+                  <img src="{% if item.image %}{{ item.image.url }}{% else %}{{ item.image_url|menu_image_url }}{% endif %}" alt="{{ item.name }}" loading="lazy" decoding="async">
                 </div>
                 <div class="detail-box">
                   <h5>
