@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from django.core.management import call_command
+from django.db import transaction
 from .models import Contact, FranchiseInquiry, Category, MenuItem, HomePageContent, Rating, ShopSettings
 
 
@@ -21,7 +22,16 @@ def ensure_menu_assets_loaded():
         return
 
     try:
-        call_command('import_menu_assets', verbosity=0)
+        with transaction.atomic():
+            settings_row = ShopSettings.objects.select_for_update().first()
+            if settings_row is None:
+                settings_row = ShopSettings.objects.create()
+            # Re-check after acquiring the lock; another worker may have finished it.
+            if MenuItem.objects.filter(
+                is_available=True,
+                image_url__startswith='/static/menu_assets/',
+            ).count() < 100:
+                call_command('import_menu_assets', verbosity=0)
     except Exception:
         logger.exception('Unable to synchronize the bundled menu catalog')
 
