@@ -95,6 +95,9 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "dabeli", "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# Keep static assets available even if a manually configured Render build skips
+# collectstatic; the normal collected-static path remains the fast path.
+WHITENOISE_USE_FINDERS = True
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
