@@ -31,7 +31,8 @@
 function getYear() {
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
-    document.querySelector("#displayYear").innerHTML = currentYear;
+    var yearNode = document.querySelector("#displayYear");
+    if (yearNode) yearNode.innerHTML = currentYear;
 }
 
 getYear();
@@ -39,6 +40,7 @@ getYear();
 
 // isotope js
 $(window).on('load', function () {
+    if (!$.fn.isotope) return;
     $('.filters_menu li').click(function () {
         $('.filters_menu li').removeClass('active');
         $(this).addClass('active');
@@ -60,7 +62,7 @@ $(window).on('load', function () {
 
 // nice select
 $(document).ready(function() {
-    $('select').niceSelect();
+    if ($.fn.niceSelect) $('select').niceSelect();
   });
 
 /** google_map js **/
@@ -73,7 +75,7 @@ function myMap() {
 }
 
 // client section owl carousel
-$(".client_owl-carousel").owlCarousel({
+if ($.fn.owlCarousel && $(".client_owl-carousel").length) $(".client_owl-carousel").owlCarousel({
     loop: true,
     margin: 0,
     dots: false,

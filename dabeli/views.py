@@ -15,7 +15,7 @@ def get_shop_settings():
 def index(request):
     home_content = HomePageContent.objects.first()
     categories = Category.objects.all()
-    items = MenuItem.objects.filter(is_available=True)
+    items = MenuItem.objects.filter(is_available=True).select_related('category')
     shop = get_shop_settings()
     return render(request, 'index.html', {
         'home_content': home_content,
@@ -31,7 +31,7 @@ def about(request):
 
 def menu(request):
     categories = Category.objects.all()
-    items = MenuItem.objects.filter(is_available=True)
+    items = MenuItem.objects.filter(is_available=True).select_related('category')
     shop = get_shop_settings()
     return render(request, 'menu.html', {
         'categories': categories,

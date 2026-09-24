@@ -98,6 +98,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # Keep static assets available even if a manually configured Render build skips
 # collectstatic; the normal collected-static path remains the fast path.
 WHITENOISE_USE_FINDERS = True
+WHITENOISE_MAX_AGE = 604800
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")

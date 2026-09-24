@@ -5,3 +5,7 @@ import os
 # reachable there as well as when the command comes from render.yaml/Procfile.
 bind = f"0.0.0.0:{os.environ.get('PORT', '8000')}"
 preload_app = True
+workers = 2
+threads = 2
+worker_class = "gthread"
+keepalive = 5
