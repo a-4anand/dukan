@@ -88,7 +88,8 @@
       <button class="franchise-close" type="button" aria-label="Close" onclick="toggleFranchiseDrawer(false)">&times;</button>
     </div>
     <div class="franchise-banner"><span class="franchise-dot" aria-hidden="true">●</span> We would love to hear from you.</div>
-    <form id="franchise-inquiry-form" class="franchise-form-wrap" novalidate>
+    <form id="franchise-inquiry-form" class="franchise-form-wrap" method="post" novalidate>
+      {% csrf_token %}
       <h4>Tell us about your plan</h4>
       <p class="form-help">Fill in your details, then continue on WhatsApp to send your inquiry directly to our team.</p>
       <div class="franchise-field"><label for="name">Full name</label><input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required></div>
@@ -121,6 +122,8 @@
     }
 
     function submitFranchiseWhatsApp() {
+      const form = document.getElementById('franchise-inquiry-form');
+      const button = document.querySelector('.franchise-whatsapp-button');
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -130,18 +133,32 @@
       const note = document.getElementById('message').value.trim();
 
       if (!name) { showFranchiseMessage('Please enter your full name.'); return; }
-      if (!phone || phone.length < 10) { showFranchiseMessage('Please enter a valid phone number.'); return; }
+      const phoneDigits = phone.replace(/\D/g, '');
+      if (phoneDigits.length < 10) { showFranchiseMessage('Please enter a valid phone number.'); return; }
       if (!email || !document.getElementById('email').checkValidity()) { showFranchiseMessage('Please enter a valid email address.'); return; }
       if (!locality) { showFranchiseMessage('Please enter your preferred locality.'); return; }
       if (!city) { showFranchiseMessage('Please enter your city.'); return; }
 
+      // Open a tab while this click is still a user gesture. Opening it only
+      // after fetch() resolves is blocked by Safari/Chrome popup protection.
+      const whatsappWindow = window.open('about:blank', '_blank');
       showFranchiseMessage('');
-      fetch('/get_cart/')
+      button.disabled = true;
+      button.setAttribute('aria-busy', 'true');
+      button.dataset.originalLabel = button.textContent.trim();
+      button.lastChild.textContent = ' Preparing WhatsApp…';
+
+      fetch(window.location.pathname, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: new FormData(form),
+      })
         .then(response => {
-          if (!response.ok) throw new Error('Unable to load contact number');
+          if (!response.ok) throw new Error('Unable to save inquiry');
           return response.json();
         })
         .then(data => {
+          if (data.status !== 'success' || !data.whatsapp_number) throw new Error('WhatsApp number unavailable');
           let message = '🏪 *New Franchise Inquiry — Dinesh Dabeli Website*\n\n';
           message += `👤 *Name:* ${name}\n`;
           message += `📱 *Phone:* ${phone}\n`;
@@ -151,9 +168,24 @@
           if (budget) message += `💰 *Investment budget:* ${budget}\n`;
           if (note) message += `📝 *Message:* ${note}\n`;
           message += '\nPlease share the next steps for opening a Dinesh Dabeli franchise. Thank you! 🙏';
-          window.open(`https://wa.me/${data.whatsapp_number}?text=${encodeURIComponent(message)}`, '_blank');
+          const whatsappNumber = String(data.whatsapp_number).replace(/\D/g, '');
+          const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+          if (whatsappWindow && !whatsappWindow.closed) {
+            whatsappWindow.location.href = whatsappUrl;
+          } else {
+            window.location.href = whatsappUrl;
+          }
         })
-        .catch(() => showFranchiseMessage('Could not open WhatsApp. Please check your connection and try again.'));
+        .catch(error => {
+          if (whatsappWindow && !whatsappWindow.closed) whatsappWindow.close();
+          console.error('Franchise WhatsApp submission failed:', error);
+          showFranchiseMessage('Could not open WhatsApp. Please check your connection and try again.');
+        })
+        .finally(() => {
+          button.disabled = false;
+          button.removeAttribute('aria-busy');
+          button.lastChild.textContent = ' Apply on WhatsApp';
+        });
     }
 
     document.addEventListener('DOMContentLoaded', function () {
